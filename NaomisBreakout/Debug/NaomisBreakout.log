@@ -1,8 +1,28 @@
 ﻿  Source.cpp
-c:\users\ntuckerholt\source\repos\naomisbreakout\naomisbreakout\source.cpp(24): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-c:\users\ntuckerholt\source\repos\naomisbreakout\naomisbreakout\source.cpp(34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\ntuckerholt\source\repos\naomisbreakout\naomisbreakout\source.cpp(38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\ntuckerholt\source\repos\naomisbreakout\naomisbreakout\source.cpp(42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\ntuckerholt\source\repos\naomisbreakout\naomisbreakout\source.cpp(93): warning C4018: '<': signed/unsigned mismatch
-c:\users\ntuckerholt\source\repos\naomisbreakout\naomisbreakout\source.cpp(146): warning C4018: '<': signed/unsigned mismatch
-  NaomisBreakout.vcxproj -> C:\Users\ntuckerholt\source\repos\NaomisBreakout\Debug\NaomisBreakout.exe
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(25,35): warning C4244:  'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(25,22): warning C4244:  'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(33,16): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(34,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,53): warning C4244:  'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,53): warning C4244:         with
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,53): warning C4244:         [
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,53): warning C4244:             T=float
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,53): warning C4244:         ]
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,41): warning C4244:  'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,41): warning C4244:         with
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,41): warning C4244:         [
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,41): warning C4244:             T=float
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(39,41): warning C4244:         ]
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(45,44): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(49,62): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(49,44): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(53,76): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(53,44): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(93,31): warning C4244:  '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(93,31): warning C4244:         with
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(93,31): warning C4244:         [
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(93,31): warning C4244:             T=float
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(93,31): warning C4244:         ]
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(134,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\HOME\Desktop\NaomisBreakoutGame\NaomisBreakout\Source.cpp(159,21): warning C4018:  '<': signed/unsigned mismatch
+  NaomisBreakout.vcxproj -> C:\Users\HOME\Desktop\NaomisBreakoutGame\Debug\NaomisBreakout.exe

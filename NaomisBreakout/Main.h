@@ -14,8 +14,9 @@ public:
 	sf::Vector2f bSize;
 	sf::Vector2f bPos;
 };
+//cool so i have to remember to capatilaze classes or im gonna mess my day up. 
 
-class ball
+class Ball
 {
 public: //fuctions 
 	void Bounce(int direction)
@@ -55,7 +56,8 @@ private:
 	sf::RectangleShape left;
 	sf::RectangleShape bottom;
 	sf::RectangleShape right;
-	float windowWidth = 1000;
+	//for some reason when i made the window to big the paddle doesn't spawn 
+	float windowWidth = 750;
 	float windowHeight = 600;
 	int score = 0;
 	int lives = 3;

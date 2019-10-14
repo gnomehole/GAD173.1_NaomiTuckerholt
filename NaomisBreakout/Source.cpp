@@ -14,9 +14,10 @@ int main()
 	return 0;
 
 }
-
+//made a brick amount int var to make it easier to change max brick amount
+int Brickamount = 60; 
 Brick brick; //defining a brick
-vector<Brick> Bricks(15, Brick(brick)); //creating a brick vector (list) of bricks
+vector<Brick> Bricks(Brickamount, Brick(brick)); //creating a brick vector (list) of bricks 
 bool Game::Start()
 {
 
@@ -25,34 +26,53 @@ bool Game::Start()
 	window.create(vMode, "breakout!");
 	window.setFramerateLimit(60);
 
-	for (int i = 0; i < 15; i++)
+	//spawnin bricks yo
+	//setting brick size
+	int brickwidth = 75;
+	int brickheight = 30;
+	int RowLength = windowWidth / brickwidth;
+	srand(time(NULL));
+
+	for (int i = 0; i < Brickamount; i++)
 	{
-		Bricks[i].bShape.setSize(sf::Vector2f(75, 30));
+		
+		Bricks[i].bShape.setSize(sf::Vector2f(brickwidth, brickheight));
+		//setting brick colour
 		Bricks[i].bShape.setFillColor(sf::Color(rand() % 255, rand() % 255, rand() % 255));
-		if (i <= 5)
+		
+		if (i > 0 and i < RowLength)
 		{
-			Bricks[i].bShape.setPosition(75 * i, 0);
+			Bricks[i].bShape.setPosition(brickwidth * i, 0);
 		}
-		else if (i > 10)
+		else if (i > RowLength and i < RowLength*2)
 		{
-			Bricks[i].bShape.setPosition(75 * (i - 11), 0);
+			Bricks[i].bShape.setPosition(brickwidth * (i- RowLength), brickheight);
 		}
-		else if (i > 5)
+		else if (i > RowLength*2 and i < RowLength*3)
 		{
-			Bricks[i].bShape.setPosition(75 * (i - 6), 0);
+			Bricks[i].bShape.setPosition(brickwidth * (i - RowLength*2), brickheight*2);
 		}
 	}
 
 
 	//setup borders
 	top.setSize((sf::Vector2f(windowWidth, 1)));
-	top.setPosition(0, 0);
+	top.setPosition(1, 1);
 	top.setFillColor(sf::Color::Black);
 	bottom.setSize(sf::Vector2f(windowWidth, 1));
-	bottom.setPosition(sf::Vector2f(windowHeight, -1));
+	bottom.setPosition(sf::Vector2f(windowHeight, 1));
 	bottom.setFillColor(sf::Color::Black);
-	left.setSize(sf::Vector2f(1, windowWidth));
-	right.setPosition(sf::Vector2f(-1, windowWidth));
+	left.setSize(sf::Vector2f(1, windowHeight));
+	left.setPosition(sf::Vector2f(1, 1));
+	right.setSize(sf::Vector2f(1, windowHeight));
+	right.setPosition(sf::Vector2f(windowWidth, 1));
+
+	//changed stuff so heres backup
+	//top.setSize((sf::Vector2f(windowWidth, 1)));
+	//top.setPosition(0, 0);
+	//top.setFillColor(sf::Color::Black);
+	//bottom.setSize(sf::Vector2f(windowWidth, 1));
+	//bottom.setPosition(sf::Vector2f(0, -windowHeight));
 
 
 	return true;
@@ -62,101 +82,91 @@ bool Game::Start()
 int Game::Update()
 {
 	Paddle paddle;
-	ball ball;
-	bool HitsWall = false;
+	paddle.pShape.setSize(sf::Vector2f(120.f, 15.f));
+	paddle.pShape.setFillColor(sf::Color::Green);
+	paddle.pShape.setPosition(windowWidth / 2, windowHeight - windowHeight / 5);
+	Ball ball;
+	ball.ballShape.setRadius(12.f);
+	ball.ballShape.setPosition(paddle.pShape.getPosition().x, paddle.pShape.getPosition().y - 75);
+	ball.ballShape.setFillColor(sf::Color::Red);
 
+	ball.ballVelocity.x = rand() % 10;
+	ball.ballVelocity.y = -5;
 
-	//collision vector to make it easier to tweak
-
-
-	window.setFramerateLimit(60);
-	//sf::RectangleShape paddle(paddle.pSize);
-
-	ball.ballShape.setPosition(ball.ballPos);
+	//Code runs while window is open
 	while (window.isOpen())
-	{
-		window.draw(paddle.pShape);
-		window.draw(ball.ballShape);
+	{	
 		//paddle movement based on mouse position
-		if (sf::Mouse::getPosition(window).x > 0 &&
-			sf::Mouse::getPosition(window).x < (window.getSize().x - paddle.pShape.getSize().x))
+		if (sf::Mouse::getPosition(window).x > paddle.pShape.getSize().x / 2 &&
+			sf::Mouse::getPosition(window).x < (window.getSize().x - paddle.pShape.getSize().x / 2))
 		{
-			paddle.pShape.setPosition(sf::Mouse::getPosition(window).x - paddle.pShape.getSize().x / 2, paddle.pShape.getPosition().y);
-
+			paddle.pShape.setPosition(sf::Mouse::getPosition(window).x - paddle.pShape.getSize().x /2, 
+				paddle.pShape.getPosition().y);
 		}
 
-		//ball & paddle collision
+		//ball collision with borders
+		if (top.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds())) {
+			ball.Bounce(0);
+		}
+		if (bottom.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds()))
+		{
+			//may want to reset, for now let's bounce and reduce lives
+			ball.Bounce(0);
+			lives -= 1;
+			if (lives < 1) {
+				//End game
+				return 1;
+			}
+		}
+		
+		if (left.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds()) || 
+			right.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds())) {
+			ball.Bounce(1);
+		}
+		
+		//paddle and ball collision
 		if (paddle.pShape.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds()))
 		{
 			ball.Bounce(0);
 		}
-		for (int i = 0; i < Bricks.size(); i++)
+
+		//ball and brick collision
+		for (int i = 0; i < Bricks.size(); i++) 
 		{
 			if (Bricks[i].bShape.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds()))
 			{
 				ball.Bounce(0);
 				Bricks[i].bShape.setPosition(1200, 0);
 				score += 1;
-				ball.ballVelocity = ball.ballVelocity * 1.03f;
-
+				ball.ballVelocity = ball.ballVelocity * 1.03f; //increases speed of ball
 			}
 		}
 
+		
 
-
-
-		//makes sure the ball is moving?
-		ball.ballShape.move(ball.ballVelocity);
-
-		//ball boundaries
-		if (top.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds()))
-		{
-			ball.Bounce(0);
-		}
-		if (bottom.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds()))
-		{
-			ball.Bounce(0);
-			lives -= 1;
-			if (lives < 1)
-			{
-				return 1;
-			}
-		}
-		if (left.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds()))
-		{
-			ball.Bounce(1);
-		}
-		if (right.getGlobalBounds().intersects(ball.ballShape.getGlobalBounds()))
-		{
-			ball.Bounce(1);
-		}
-
-		ball.ballShape.move(ball.ballVelocity);
-
+		ball.ballShape.move(ball.ballVelocity); //moves the ball
 		sf::Event event;
-		//Pollevent is our window updating 
+		//PollEvent is our window updating event
 		while (window.pollEvent(event))
 		{
+			//if window closes
 			if (event.type == sf::Event::Closed)
-			{
 				window.close();
-			}
 		}
+		//clear window and redraw images
 		window.clear();
-		for (int i = 0; i < Bricks.size(); i++)
+		//draw bricks
+		for (int i = 0; i < Bricks.size(); i++) 
 		{
 			window.draw(Bricks[i].bShape);
 		}
-
-
-		window.display();
+		window.draw(paddle.pShape);
+		window.draw(ball.ballShape);
 		window.draw(top);
 		window.draw(left);
 		window.draw(right);
 		window.draw(bottom);
-
+		window.display();
 	}
-
 	return 0;
-
 }
